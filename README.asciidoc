@@ -1,4 +1,4 @@
 Arduino-Quickstart
 ==================
 
-Small Arduino Projects
+Small Arduino Projects, Cool no?

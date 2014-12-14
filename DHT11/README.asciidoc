@@ -1,0 +1,88 @@
+# DHT11 - Measure temperature and humidity
+
+The DHT11 is a sensor for Arguino you can use to measure temperature and humidity made by VirtuaBotix, for details see https://www.virtuabotix.com/product/virtuabotix-dht11-temperature-humidity-sensor/. The sensor came with a little flier with additional info and a link to the latest library to use.
+
+image:./images/flier.jpg[Flier]
+
+## Setup
+
+The sensor has a connector with four pins that you can push right into the breadboard. Next you need to hook up three of the four pins. When looking at the front, with the sticker in the back, then from left to right use:
+
+1. to 5V (Power)
+2. to Readout (pin 2)
+3. unused
+4. to GND (Ground)
+
+image:./images/setup.jpg[Setup]
+
+## Library
+
+We downloaded the library from https://virtuabotix-virtuabotixllc.netdna-ssl.com/core/wp-content/uploads/2011/11/DHT11_2S0A.zip, unzipped it and loaded it into the Ardiuno IDE using `Sketch > Import Library... > Add Library` and selecting the unzipped DHT11 directory. You can also find it in the library directory of this project.
+
+## Sketch
+
+There are two examples you can use `File > Examples > DHT11` `dht11_functions` and `dht11OnVersalino`. We picked the `dht11_functions` example sketch
+
+```
+
+#include <dht11.h>
+
+dht11 DHT11;
+
+void setup()
+{
+  DHT11.attach(2);
+  Serial.begin(9600);
+  Serial.println("DHT11 TEST PROGRAM ");
+  Serial.print("LIBRARY VERSION: ");
+  Serial.println(DHT11LIB_VERSION);
+  
+}
+
+void loop()
+{
+  Serial.println("\n");
+
+  int chk = DHT11.read();
+
+  Serial.print("Read sensor: ");
+  switch (chk)
+  {
+    case 0: Serial.println("OK"); break;
+    case -1: Serial.println("Checksum error"); break;
+    case -2: Serial.println("Time out error"); break;
+    default: Serial.println("Unknown error"); break;
+  }
+
+  Serial.print("Humidity (%): ");
+  Serial.println((float)DHT11.humidity, DEC);
+
+  Serial.print("Temperature (°C): ");
+  Serial.println((float)DHT11.temperature, DEC);
+
+  Serial.print("Temperature (°F): ");
+  Serial.println(DHT11.fahrenheit(), DEC);
+
+  Serial.print("Temperature (°K): ");
+  Serial.println(DHT11.kelvin(), DEC);
+
+  Serial.print("Dew Point (°C): ");
+  Serial.println(DHT11.dewPoint(), DEC);
+
+  Serial.print("Dew PointFast (°C): ");
+  Serial.println(DHT11.dewPointFast(), DEC);
+
+  delay(2000);
+}
+```
+
+You can see the Serial Output by going to `Tools > Serial Monitor
+
+image:./images/output.png[Output]
+
+
+## References
+
+1. https://www.virtuabotix.com/product/virtuabotix-dht11-temperature-humidity-sensor/
+2. https://virtuabotix-virtuabotixllc.netdna-ssl.com/core/wp-content/uploads/2011/11/DHT11_2S0A.zip
+3. https://www.virtuabotix.com/virtuabotix-dht11-pin-out-reference-guide/
