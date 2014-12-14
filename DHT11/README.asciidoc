@@ -76,7 +76,7 @@ void loop()
 }
 ```
 
-You can see the Serial Output by going to `Tools > Serial Monitor
+You can see the Serial Output by going to `Tools > Serial Monitor`
 
 image:./images/output.png[Output]
 
